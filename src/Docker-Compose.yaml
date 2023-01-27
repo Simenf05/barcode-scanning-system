@@ -1,0 +1,35 @@
+version: '1'
+
+services:
+
+  tech-database:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: simen
+      MONGO_INITDB_ROOT_PASSWORD: simenerkul
+
+
+  python-api:
+    build: 
+      context: ./python-api/
+      dockerfile: dockerfile
+      args:
+        - PORT_ARG=${API_PORT}
+
+    depends_on:
+      - tech-database
+
+  express-server:
+    build: 
+      context: ./express-server/
+      dockerfile: Dockerfile
+      args:
+        - WEB_PORT=${WEB_PORT}
+        - API_PORT=${API_PORT}
+      
+    ports:
+      - ${WEB_PORT}:8080
+
+    depends_on:
+      - python-api
