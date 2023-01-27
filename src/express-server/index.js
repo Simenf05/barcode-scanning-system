@@ -1,14 +1,18 @@
 const express = require('express');
 const axios = require('axios').default;
 
-const port = process.env.PORT || 8080;
+const external_port = process.env.PORT_OUT;
+const internal_port = process.env.WEB_PORT || 8080;
+const api_port = process.env.API_PORT || 3000;
+
+
 const app = express();
 
 
 async function getPeopleList() {
-    const people = await axios.get("http://127.0.0.1:8000");
-    const json = await people.data;
-    return json;
+    const people = await axios.get(`http://python-api:${api_port}`);
+    const data = await people.data;
+    return data;
 }
 
 
@@ -44,6 +48,6 @@ app.get("/", (req, res) => {
     res.end("hei");
 })
 
-app.listen(port, () => {
-    console.log(`app listening on port ${port}`);
+app.listen(internal_port, () => {
+    console.log(`App listening on internal port: ${internal_port} and external port: ${external_port}`);
 })
