@@ -23,14 +23,6 @@ services:
     depends_on:
       - tech-database
 
-  api-test:
-    build: 
-      context: ./api-test-conn/
-      dockerfile: Dockerfile
-
-    depends_on:
-      - python-api
-
   express-server:
     build: 
       context: ./express-server/

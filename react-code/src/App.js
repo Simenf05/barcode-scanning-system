@@ -22,7 +22,22 @@ function App() {
         })();
     }, []);
 
+    async function getProduct(id) {
+        let url = "/api/products";
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"id": id})
+        });
+        const json = await res.json();
+        return json;
+    }
+
     const selectUser = (searchWord) => setSelectedPeople([...people.filter(name => name.includes(searchWord))])
+
+
 
     return (
         <>
@@ -42,7 +57,7 @@ function App() {
             <br/>
             <br/>
 
-            <Scan />
+            <Scan getProduct={getProduct} />
             
         </>
     )
