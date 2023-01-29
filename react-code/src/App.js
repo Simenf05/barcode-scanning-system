@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Search from './Search';
 import Scan from "./Scan";
+import './index.css';
 
 function App() {
 
@@ -40,8 +41,8 @@ function App() {
 
 
     return (
-        <>
-            <h1>hei</h1>
+        <div>
+            <h1 className="bg-green-700">hei</h1>
             <h2>{loadPeople}</h2>
 
             <Search select={selectUser} people={people} />
@@ -58,8 +59,8 @@ function App() {
             <br/>
 
             <Scan getProduct={getProduct} />
-            
-        </>
+        </div>
+        
     )
 }
 

@@ -23,7 +23,6 @@ people = {"people": [
 products = {
     "simen3": {"data": "dette er simen ting"},
     "tomas3": {"data": "dette er tomas ting"},
-    "leah": {"leahting": "wowowow"}
 }
 
 
