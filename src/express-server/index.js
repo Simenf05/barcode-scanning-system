@@ -10,12 +10,18 @@ const app = express();
 
 
 async function getPeopleList() {
-    const people = await axios.get(`http://python-api:${api_port}`);
-    const data = await people.data;
-    return data;
+    try {
+        const people = await axios.get(`http://python-api:${api_port}`);
+        const data = await people.data;
+        return data;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 
+app.use(express.static("images"));
 
 
 app.use("/api", (req, res, next) => {
