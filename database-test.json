@@ -1,12 +1,12 @@
 
 [
     {
-        "_id": "simen",
+        "_id": "id",
         "strekkode": "simenerkul",
         "ting": "canon kamera"
     },
     {
-        "_id": "simen2",
+        "_id": "id",
         "strekkode": "simenerkul2",
         "ting": "simen sin lader"
         

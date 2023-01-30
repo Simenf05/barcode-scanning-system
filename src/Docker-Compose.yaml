@@ -8,13 +8,13 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: simen
-      MONGO_INITDB_ROOT_PASSWORD: simenerkul
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
 
     volumes:
       - mongo:/data/db
     ports:
-      - "27017:27017"
+      - "27018:27017"
 
 
   python-api:
