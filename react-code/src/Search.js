@@ -13,7 +13,7 @@ function Search(props) {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input type="search" autoComplete="off" placeholder="Search for people..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                <input className="border" type="search" autoComplete="off" placeholder="Search for people..." value={search} onChange={(e) => setSearch(e.target.value)} />
             </form>
         </>
     )

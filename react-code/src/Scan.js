@@ -15,7 +15,7 @@ function Scan(props) {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input type="text" autoComplete="off" placeholder="Click and scan..." value={id} onChange={(e) => setId(e.target.value)} />
+                <input className="border" type="text" autoComplete="off" placeholder="Click and scan..." value={id} onChange={(e) => setId(e.target.value)} />
             </form>
             <p>{data}</p>
         </>

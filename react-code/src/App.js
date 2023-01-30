@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Search from './Search';
 import Scan from "./Scan";
-import './index.css';
 
 function App() {
 
@@ -41,8 +40,8 @@ function App() {
 
 
     return (
-        <div>
-            <h1 className="bg-green-700">hei</h1>
+        <div className="flex items-center flex-col">
+            <h1 className="font-bold uppercase text-5xl font-serif">hei</h1>
             <h2>{loadPeople}</h2>
 
             <Search select={selectUser} people={people} />

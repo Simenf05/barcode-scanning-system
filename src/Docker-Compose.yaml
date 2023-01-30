@@ -1,13 +1,20 @@
-version: '1'
+version: '2'
 
 services:
 
   tech-database:
-    image: mongo
+    build: 
+      context: ./database/
+      dockerfile: Dockerfile
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: simen
       MONGO_INITDB_ROOT_PASSWORD: simenerkul
+
+    volumes:
+      - mongo:/data/db
+    ports:
+      - "27017:27017"
 
 
   python-api:
@@ -38,3 +45,6 @@ services:
 
     depends_on:
       - python-api
+
+volumes:
+  mongo:

@@ -1,0 +1,7 @@
+Plan for hva som må skje
+
+- Velge database og sette den opp
+- Lage system for innføring av data
+- Koble til AD
+- Gjøre ferdig GUI og nettside (React)
+- Sette opp fysisk maskin (ubuntu server)
