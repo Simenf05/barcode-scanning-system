@@ -23,6 +23,9 @@ services:
       dockerfile: Dockerfile
       args:
         - API_PORT=${API_PORT}
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
     
     expose:
       - ${API_PORT}

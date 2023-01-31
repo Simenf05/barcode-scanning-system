@@ -40,8 +40,9 @@ function App() {
 
 
     return (
+
         <div className="flex items-center flex-col">
-            <h1 className="font-bold uppercase text-5xl font-serif">hei</h1>
+
             <h2>{loadPeople}</h2>
 
             <Search select={selectUser} people={people} />

@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios').default;
+const session = require('express-session');
 
 const external_port = process.env.PORT_OUT;
 const internal_port = process.env.WEB_PORT || 8080;

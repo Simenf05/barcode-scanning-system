@@ -13,6 +13,7 @@ ms-active-directory==1.12.1
 pyasn1==0.4.8
 pycryptodome==3.16.0
 pydantic==1.10.4
+pymongo==4.3.3
 pytz==2022.7.1
 rfc3986==1.5.0
 six==1.16.0
