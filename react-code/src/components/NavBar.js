@@ -1,11 +1,11 @@
-import React from "react";
+
 
 function NavBar() {
 
 
     return (
-            <></>
+        <ul></ul>
     )
 }
-
+ 
 export default NavBar;
