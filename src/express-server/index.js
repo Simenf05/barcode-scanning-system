@@ -61,10 +61,21 @@ app.get("/api/people", (req, res) => {
     })
 })
 
+/* 
+const oneDay = 1000 * 60 * 60 * 24;
 
-
+app.use(session({
+    secret: "heihei",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: oneDay
+    }
+}))
+*/
 app.get("/", (req, res) => {
-    res.end("hei");
+    req.session.views = (req.session.views || 0) + 1;
+    res.send(`views: ${req.session.views}`)
 })
 
 app.listen(internal_port, () => {

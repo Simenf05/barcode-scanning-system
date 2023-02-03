@@ -34,7 +34,7 @@ products = {
 
 @app.get('/products')
 def allProducts():
-    return JSONResponse(products)
+    return JSONResponse(dumps(products))
 
 
 @app.get('/products/{id}')
@@ -51,7 +51,7 @@ def productId(id):
         
     match len(document_list):
         case 0: 
-            return JSONResponse({"feil": "key"})
+            return JSONResponse(dumps({"feil": "key"}))
         case 1: 
             return JSONResponse(dumps(document_list[0]))
         case _:
