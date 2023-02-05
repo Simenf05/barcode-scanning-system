@@ -17,9 +17,6 @@ export const NavBar = () => {
                 <Link to="/Lending">
                     Lending
                 </Link>{'  '}
-                <Link to="/login">
-                    Login
-                </Link>{'  '}
                 <Link to="/Return">
                     Return
                 </Link>

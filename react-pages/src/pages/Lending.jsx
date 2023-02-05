@@ -20,7 +20,7 @@ export const Lending = () => {
             const res = await axios.get(url);
             
             if (res.status === 200) {
-                setPeople([...res.data.people]);
+                setPeople([...res.data.people.map(person => person.toLowerCase())])
             }
         })();
     }, []); 
@@ -42,7 +42,7 @@ export const Lending = () => {
             <Search className="m-3" select={selectPerson} people={people} />
         
 
-            <p className="m-3">Selected person: {selectedPerson}</p>
+            <p className="m-3">Selected person: {selectedPerson.charAt(0).toLocaleUpperCase() + selectedPerson.slice(1)}</p>
 
             {selectedPerson.length ? <Scan className="m-8" setSelected={setSelectedID} /> : <div></div>}
 

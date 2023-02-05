@@ -3,7 +3,6 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { FAQ } from "./pages/FAQ";
 import { Lending } from "./pages/Lending";
 import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
 import { Return } from "./pages/Return";
 
 import { RootRoute, Route, ReactRouter, RouterProvider  } from "@tanstack/react-router";
@@ -16,14 +15,12 @@ let rootRoute = new RootRoute({ component: NavBar })
 const lendingRoute = new Route({ getParentRoute: () => rootRoute, path: '/Lending', component: Lending })
 const faqRoute = new Route({ getParentRoute: () => rootRoute, path: 'FAQ', component: FAQ })
 const homeRoute = new Route({ getParentRoute: () => rootRoute, path: '/', component: Home })
-const loginRoute = new Route({ getParentRoute: () => rootRoute, path: '/login', component: Login })
 const returnRoute = new Route({ getParentRoute: () => rootRoute, path: '/Return', component: Return })
 
 const routeTree = rootRoute.addChildren([
     homeRoute,
     faqRoute,
     lendingRoute,
-    loginRoute,
     returnRoute
 ])
 

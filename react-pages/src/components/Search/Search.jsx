@@ -6,20 +6,27 @@ export const Search = (props) => {
 
     const [search, setSearch] = useState("");
     const [notFullMatch, setNotFullMatch] = useState([]);
+    const [gibberish, setGibberish] = useState("");
 
-
-    const showSearches = (searchWord) => {
-        setNotFullMatch([...props.people.filter(name => name.includes(searchWord))])
-    }
 
 
     const onSubmit = (event) => {
         event.preventDefault()
-        if (props.select(search)) {
-            //noe
+
+        setNotFullMatch()
+
+        if (props.select(search.toLowerCase())) {
+            setNotFullMatch([])
+            setGibberish("")
         }
         else {
-            showSearches(search)
+            let list = [...props.people.filter(name => name.includes(search.toLowerCase()))]
+            setNotFullMatch(list)
+            if (!(list.length)) {
+                setGibberish("No matches at all.")
+                return
+            }
+            setGibberish("")
         }
     }
 
@@ -42,9 +49,9 @@ export const Search = (props) => {
             autoFocus/>
             <input className="border" type="submit" value="Search" />
         </form>
-
-        <div className="grid grid-cols-3"> {/* HVA FAEWN ER DETTE JEG SKJØNNER IKKE */}
-            {notFullMatch.map(name => <div onClick={(e) => console.log(e.target)} key={name} value={name}>{name}</div>)}
+        <div className="text-center">{gibberish}</div>
+        <div className="grid grid-cols-3">
+            {notFullMatch.map(name => <div value={name} className="border p-1 m-2 text-center" onClick={(e) => props.select(e.currentTarget.getAttribute('value'))} key={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</div>)}
         </div>
 
         </div>

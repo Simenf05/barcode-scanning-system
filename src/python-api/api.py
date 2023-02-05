@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 
 import os
@@ -7,16 +7,20 @@ from bson.json_util import dumps
 import pymongo
 import httpx
 import asyncio
-import pydantic
+from pydantic import BaseModel
 import ms_active_directory
 
-db_user = urllib.parse.quote_plus(os.environ['DB_USER'])
-db_pass = urllib.parse.quote_plus(os.environ['DB_PASS'])
+try:
+    db_user = urllib.parse.quote_plus(os.environ['DB_USER'])
+    db_pass = urllib.parse.quote_plus(os.environ['DB_PASS'])
+except:
+    db_user = "simen"
+    db_pass = "simenerkul"
 
 app = FastAPI()
 
 people = {"people": [
-        "simen",
+        "Simen",
         "simen 2",
         "tomas",
         "ole",
@@ -31,6 +35,21 @@ products = {
     "tomas3": {"data": "dette er tomas ting"},
 }
 
+simen_user = {
+    "username": "simen",
+    "password": "simenerkul",
+    "auth": "05"
+}
+
+class User(BaseModel):
+    username: str
+    password: str
+
+@app.post('/checkUser')
+def checkUser(user: User):
+    if (not user.username == simen_user["username"]) or (not user.password == simen_user["password"]):
+        raise HTTPException(status_code=403, detail="Access denied.")
+    return {"auth": simen_user["auth"]}
 
 @app.get('/products')
 def allProducts():
@@ -51,7 +70,7 @@ def productId(id):
         
     match len(document_list):
         case 0: 
-            return JSONResponse(dumps({"feil": "key"}))
+            return JSONResponse(dumps({"err": "No product with that element."}))
         case 1: 
             return JSONResponse(dumps(document_list[0]))
         case _:
