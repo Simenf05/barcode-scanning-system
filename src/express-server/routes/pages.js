@@ -1,31 +1,41 @@
 const express = require('express');
-const path = require('path');
+const checkUser = require('../handleUser').checkUser;
+const authUser = require('../handleUser').authUser;
 
-const router = express.Router()
+const normal = require('./subpages/normal');
+const admin = require('./subpages/admin');
 
+const router = express.Router();
+
+
+router.use('/user', normal)
+router.use('/admin', admin)
 
 router.use('/', (req, res, next) => {
-    // auth
 
-    if (false) {
-        res.redirect('')
+    if (!(req.session.user)) {
+        res.status(403).redirect('/login/')
         res.end()
+        return
     }
-
-    next()
+    
+    checkUser(req.session.user.username, req.session.user.password)
+    .then(r => authUser(r, req, res, next))
 })
 
-const cwd = process.cwd()
-
-router.use(express.static(path.join(cwd, 'build')))
-
-router.get('*', (req, res) => {
-    res.sendFile(path.join(cwd, 'build', 'index.html'), (err) => {
-        if (err) {
-            res.status(500).send(err)
+router.use('/', (req, res) => {
+    switch (req.auth) {
+        case 5: {
+            res.status(200).redirect('/admin')
         }
-    })
-});
+        case 4: {
+            res.status(200).redirect('/user')
+        }
+    }
+})
+
+
+
 
 
 module.exports = router;

@@ -35,10 +35,23 @@ products = {
     "tomas3": {"data": "dette er tomas ting"},
 }
 
+simen_userers = {
+    "simen": {
+        "username": "simen",
+        "password": "simenerkul",
+        "auth": 5
+    },
+    "simen2": {
+        "username": "simen2",
+        "password": "simen2",
+        "auth": 4
+    }
+}
+
 simen_user = {
     "username": "simen",
     "password": "simenerkul",
-    "auth": "05"
+    "auth": 5
 }
 
 class User(BaseModel):
@@ -47,9 +60,20 @@ class User(BaseModel):
 
 @app.post('/checkUser')
 def checkUser(user: User):
-    if (not user.username == simen_user["username"]) or (not user.password == simen_user["password"]):
+    auth = 0
+    
+    if not user.username in simen_userers.keys():
         raise HTTPException(status_code=403, detail="Access denied.")
-    return {"auth": simen_user["auth"]}
+    
+    for users in simen_userers.values():
+        if (user.username == users["username"]) and (user.password == users["password"]):
+            auth = users["auth"]
+            
+    if auth == 0:
+        raise HTTPException(status_code=403, detail="Access denied.")
+    
+    return {"auth": auth}
+
 
 @app.get('/products')
 def allProducts():
