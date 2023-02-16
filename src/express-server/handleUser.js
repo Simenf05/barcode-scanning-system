@@ -36,17 +36,14 @@ const authUser = (r, req, res, next) => {
     switch (r) {
         case 403: {
             res.status(403).redirect('/login/')
-            res.end()
             return
         }
         case 500: {
             res.status(500).redirect('/login/')
-            res.end()
             return
         }
         case 400: {
             res.status(400).redirect('/login/')
-            res.end()
             return
         }
     }
@@ -59,17 +56,17 @@ const authUser = (r, req, res, next) => {
         case 5: {
             req.auth = 5;
             next()
-            return
+            break
         }
         case 4: {
             req.auth = 4;
             next()
-            return
+            break
         }
         case 3: {
             req.auth = 3;
             next()
-            return
+            break
         }
     }
 }

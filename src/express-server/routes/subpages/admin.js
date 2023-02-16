@@ -19,16 +19,6 @@ async function getPeopleList() {
     }
 }
 
-router.use('/', (req, res, next) => {
-    if (!(req.auth > 4)) {
-        res.status(403).redirect('/login/')
-        res.end()
-        return
-    }
-
-    next()
-})
-
 router.use("/api", (req, res, next) => {
 
     (async () => {
@@ -52,28 +42,29 @@ router.post("/api/products", (req, res) => {
         }
         catch (err) {
             console.log(err);
-            res.json({"data": "Server side error."});
+            res.json({ "data": "Server side error." });
         }
     })();
 })
 
 router.get("/api/people", (req, res) => {
     getPeopleList()
-    .then((data) => {
-        res.json(data);
-    })
+        .then((data) => {
+            res.json(data);
+        })
 })
 
 router.use('/', (req, res, next) => {
 
     if (!(req.session.user)) {
         res.status(403).redirect('/login/')
-        res.end()
-        return
+
     }
-    
-    checkUser(req.session.user.username, req.session.user.password)
-    .then(r => authForSite(r, req, res, next))
+    else {
+        checkUser(req.session.user.username, req.session.user.password)
+            .then(r => authForSite(r, req, res, next))
+    }
+
 })
 
 

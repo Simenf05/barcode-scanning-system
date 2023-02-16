@@ -2,6 +2,7 @@
   "name": "react-pages",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@tanstack/react-router": "^0.0.1-beta.68",
     "@testing-library/jest-dom": "^5.16.5",

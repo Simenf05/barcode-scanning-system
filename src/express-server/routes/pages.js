@@ -15,21 +15,23 @@ router.use('/', (req, res, next) => {
 
     if (!(req.session.user)) {
         res.status(403).redirect('/login/')
-        res.end()
-        return
+    }
+    else {
+        checkUser(req.session.user.username, req.session.user.password)
+        .then(r => authUser(r, req, res, next))
     }
     
-    checkUser(req.session.user.username, req.session.user.password)
-    .then(r => authUser(r, req, res, next))
 })
 
 router.use('/', (req, res) => {
     switch (req.auth) {
         case 5: {
             res.status(200).redirect('/admin')
+            break
         }
         case 4: {
             res.status(200).redirect('/user')
+            break
         }
     }
 })
