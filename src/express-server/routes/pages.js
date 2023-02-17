@@ -4,12 +4,14 @@ const authUser = require('../handleUser').authUser;
 
 const normal = require('./subpages/normal');
 const admin = require('./subpages/admin');
+const api = require('./subpages/api')
 
 const router = express.Router();
 
 
 router.use('/user', normal)
 router.use('/admin', admin)
+router.use('/api', api)
 
 router.use('/', (req, res, next) => {
 
@@ -35,7 +37,6 @@ router.use('/', (req, res) => {
         }
     }
 })
-
 
 
 
