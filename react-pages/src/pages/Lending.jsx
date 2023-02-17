@@ -18,7 +18,7 @@ export const Lending = () => {
 
         (async () => {
             const res = await axios.get(url);
-            
+
             if (res.status === 200) {
                 setPeople([...res.data.people.map(person => person.toLowerCase())])
             }

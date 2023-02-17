@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
 
@@ -13,8 +13,6 @@ services:
 
     volumes:
       - mongo:/data/db
-    ports:
-      - "27018:27017"
 
 
   python-api:

@@ -23,11 +23,7 @@ async function getPeopleList() {
 
 router.use('/', (req, res, next) => {
 
-    if (!(req.session.user)) {
-        res.status(403).redirect('/login/')
-
-    }
-    else {
+    if (req.session.user) {
         checkUser(req.session.user.username, req.session.user.password)
         .then(r => authUser(r, req, res, next))
     }
@@ -49,25 +45,30 @@ router.use("/", (req, res, next) => {
 })
 
 router.post("/products", (req, res) => {
-    (async () => {
-        try {
-            const prod = await axios.get(`http://python-api:${api_port}/products/${req.body.id}`);
-            const json = prod.data;
-            res.json(json);
-        }
-        catch (err) {
-            console.log(err);
-            res.json({ "data": "Server side error." });
-        }
-    })();
+    if (req.auth > 4) {
+        (async () => {
+            try {
+                const prod = await axios.get(`http://python-api:${api_port}/products/${req.body.id}`);
+                const json = prod.data;
+                res.json(json);
+            }
+            catch (err) {
+                console.log(err);
+                res.json({ "data": "Server side error." });
+            }
+        })();
+    }
 })
 
 
 router.get("/people", (req, res) => {
-    getPeopleList()
-    .then((data) => {
-        res.json(data);
-    })
+    if (req.auth > 4) {
+        getPeopleList()
+        .then((data) => {
+            res.json(data);
+        })
+    }
+    
 })
 
 module.exports = router;
