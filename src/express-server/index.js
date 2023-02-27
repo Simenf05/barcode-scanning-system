@@ -28,6 +28,13 @@ app.use(session({
 app.use('/login', login)
 app.use('/', pages)
 
-app.listen(internal_port, () => {
+const server = app.listen(internal_port, () => {
     console.log(`App listening on internal port: ${internal_port} and external port: ${external_port}`);
 })
+
+process.on('SIGTERM', () => {
+    debug('SIGTERM signal received: closing HTTP server')
+    server.close(() => {
+      debug('HTTP server closed')
+    })
+  })

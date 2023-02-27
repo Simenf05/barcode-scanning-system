@@ -3,9 +3,9 @@ FROM python:3.11-slim
 WORKDIR /api
 
 ARG API_PORT
-
 ENV PORT ${API_PORT}
-ENV VIRTUAL_ENV=/.venv
+
+ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 COPY api.py .
 
-CMD [ "sh", "-c", "uvicorn api:app --host 0.0.0.0 --port $PORT" ]
+CMD exec uvicorn api:app --host 0.0.0.0 --port $PORT

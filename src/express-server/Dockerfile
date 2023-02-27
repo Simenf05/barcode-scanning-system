@@ -7,4 +7,4 @@ COPY package-lock.json .
 RUN npm i --omit-dev
 
 COPY . .
-CMD [ "node", "index.js" ]
+CMD exec node index.js
