@@ -33,8 +33,8 @@ const server = app.listen(internal_port, () => {
 })
 
 process.on('SIGTERM', () => {
-    debug('SIGTERM signal received: closing HTTP server')
+    console.debug('SIGTERM signal received: closing HTTP server')
     server.close(() => {
-      debug('HTTP server closed')
+      console.debug('HTTP server closed')
     })
   })
