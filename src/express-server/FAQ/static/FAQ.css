@@ -3,3 +3,25 @@ body {
     align-items: center;
     flex-direction: column;
 }
+
+div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+p {
+    margin: 5px;
+}
+
+.question {
+    font-style: italic;
+    font-size: large;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.answer {
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+}
