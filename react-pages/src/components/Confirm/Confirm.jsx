@@ -1,10 +1,19 @@
 import React from "react";
+import axios from "axios";
 
 export const Confirm = (props) => {
 
     const onSubmit = (event) => {
-        event.preventDefault()
-        console.log("hei");
+        event.preventDefault();
+        (async () => {
+
+            let res = await axios.post('/api/registerProduct', 
+            {person: props.selectedPerson, itemID: props.selectedID});
+
+            console.log(res);
+            
+        })();
+        
     }
 
     return (

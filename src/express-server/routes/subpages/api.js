@@ -44,6 +44,32 @@ router.use("/", (req, res, next) => {
     next();
 })
 
+
+router.post('/registerProduct', (req, res) => {
+    if (req.auth > 4) {
+        (async () => {
+            try {
+                
+                const response = await axios.post(`http://python-api:${api_port}/registerProduct`, {
+                    person: req.body.person, itemID: req.body.itemID
+                });
+
+                if (response.data) {
+                    res.json({"data": "suck"});
+                    return
+                }
+                
+                res.json({"data": "Server side error."});
+            }
+            catch (err) {
+                console.log(err);
+                res.json({ "data": "Server side error." });
+            }
+        })();
+    }
+})
+
+
 router.post("/products", (req, res) => {
     if (req.auth > 4) {
         (async () => {

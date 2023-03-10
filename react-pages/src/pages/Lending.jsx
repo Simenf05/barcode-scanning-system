@@ -46,7 +46,7 @@ export const Lending = () => {
 
             {selectedPerson.length ? <Scan className="m-8" setSelected={setSelectedID} /> : <div></div>}
 
-            {selectedID.length ? <Confirm /> : <div></div>}
+            {selectedID.length ? <Confirm selectedPerson={selectedPerson} selectedID={selectedID}  /> : <div></div>}
             
         </div>
     )

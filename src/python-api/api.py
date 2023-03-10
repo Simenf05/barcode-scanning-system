@@ -21,7 +21,6 @@ app = FastAPI()
 
 people = {"people": [
         "Simen",
-        "simen 2",
         "tomas",
         "ole",
         "jonathan",
@@ -35,24 +34,24 @@ products = {
     "tomas3": {"data": "dette er tomas ting"},
 }
 
+
+
 simen_userers = {
     "simen": {
         "username": "simen",
         "password": "simenerkul",
-        "auth": 5
+        "auth": 5,
     },
     "simen2": {
         "username": "simen2",
         "password": "simen2",
-        "auth": 4
+        "auth": 4,
     }
 }
 
-simen_user = {
-    "username": "simen",
-    "password": "simenerkul",
-    "auth": 5
-}
+class Product(BaseModel):
+    person: str
+    itemID: str
 
 class User(BaseModel):
     username: str
@@ -73,6 +72,12 @@ def checkUser(user: User):
         raise HTTPException(status_code=403, detail="Access denied.")
     
     return {"auth": auth}
+
+
+@app.post('/registerProduct')
+def registerProduct(product: Product):
+    print(product)
+    return JSONResponse({"suck": "myballs"})
 
 
 @app.get('/products')
