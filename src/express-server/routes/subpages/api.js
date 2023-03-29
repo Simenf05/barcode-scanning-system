@@ -50,7 +50,7 @@ router.post('/registerProduct', (req, res) => {
         (async () => {
             try {
                 
-                const response = await axios.post(`http://python-api:${api_port}/registerProduct`, {
+                const response = await axios.post(`http://python-api:${api_port}/register_product`, {
                     person: req.body.person, itemID: req.body.itemID
                 });
 

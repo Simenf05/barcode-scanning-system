@@ -20,6 +20,14 @@ router.use('/', (req, res, next) => {
 })
 
 
+router.use('/', (req, res, next) => {
+    if (req.auth < 5) {
+        res.status(403).redirect('/login/')
+    } else {
+        next()
+    }
+})
+
 
 const cwd = process.cwd()
 const build_path = path.join(cwd, 'build')

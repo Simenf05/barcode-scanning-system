@@ -1,8 +1,16 @@
-from ms_active_directory import ADDomain
+from ldap3 import Server, Connection, ALL
 
-domain = ADDomain('')
+server = Server('odin.kuben.it', get_info=ALL)
+conn = Connection(server, user="kuben\\simen", password="Q2w3e4r5")
 
-machine_name = 'simen_pc'
+conn.bind()
 
-session1 = domain.create_session_as_computer(machine_name)
+print(conn.extend.standard.who_am_i())
 
+conn.search('dc=kuben,dc=it', '(&(ObjectClass=user)(GivenName=*))', attributes=['sn', 'objectclass', 'cn'])
+
+names = [name.cn.value for name in conn.entries]
+
+print(names)
+
+conn.unbind()

@@ -5,7 +5,7 @@ const api_port = process.env.API_PORT || 3000;
 const checkUser = async (name, pass) => {
 
     try {
-        const check_api = await axios.post(`http://python-api:${api_port}/checkUser`, {
+        const check_api = await axios.post(`http://python-api:${api_port}/check_user`, {
             username: name,
             password: pass
         });
