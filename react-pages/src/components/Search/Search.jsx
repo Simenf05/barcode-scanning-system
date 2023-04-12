@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 export const Search = (props) => {
@@ -39,7 +39,7 @@ export const Search = (props) => {
         <>
 
         <div className={props.className + ""}>
-        <form onSubmit={onSubmit}>
+        <form className="align-middle" onSubmit={onSubmit}>
             <input 
             className="border" 
             type="search" 
