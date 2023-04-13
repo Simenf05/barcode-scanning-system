@@ -16,7 +16,7 @@ app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const oneMin = 1000 * 60;
+const oneMin = 1000 * 60 * 30;
 
 app.use(session({
     secret: 'simenerveldigkul',
