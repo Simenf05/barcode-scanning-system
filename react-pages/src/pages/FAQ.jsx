@@ -1,23 +1,18 @@
 import React from "react"
+import { QuestionsAndAnswers } from "../components/QuestionsAndAnswers/QuestionsAndAnswers";
 
 export const FAQ = () => {
-    
+
+    const questionsAndAnswer = [
+        ["What kind of privileges does this login have?", "Now you are logged in with and admin user."],
+        ["What does Lending page do?", "The Lending page is for lending out equipment to students."],
+        ["What does Return page do?", "The Return page is for returning equipment to the storage."]
+    ]
+
     return (
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-col items-center">
             <h1>FAQ</h1>
-
-            <div>
-
-                <div>
-                    <h2>
-                        Who am i?
-                    </h2>
-                    <p>Now you are logged in with an admin user.</p>
-                </div>
-
-
-            </div>
-
+            <QuestionsAndAnswers qanda={questionsAndAnswer} />
         </div>
     )
 }
