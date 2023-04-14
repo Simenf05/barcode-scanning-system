@@ -8,18 +8,20 @@ export const NavBar = () => {
     return (
         <>
             <div>
-                <Link to="/admin/">
-                    Home
-                </Link>{'  '}
-                <Link to="/admin/FAQ">
-                    FAQ
-                </Link>{'  '}
-                <Link to="/admin/Lending">
-                    Lending
-                </Link>{'  '}
-                <Link to="/admin/Return">
-                    Return
-                </Link>
+                <div className="p-2">
+                    <Link className="m-3 text-2xl" to="/admin/">
+                        Home
+                    </Link>{'  '}
+                    <Link className="m-3 text-2xl" to="/admin/FAQ">
+                        FAQ
+                    </Link>{'  '}
+                    <Link className="m-3 text-2xl" to="/admin/Lending">
+                        Lending
+                    </Link>{'  '}
+                    <Link className="m-3 text-2xl" to="/admin/Return">
+                        Return
+                    </Link>
+                </div>
                 <hr/>
                 <Outlet />
             </div>
