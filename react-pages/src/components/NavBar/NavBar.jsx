@@ -8,16 +8,16 @@ export const NavBar = () => {
     return (
         <>
             <div>
-                <Link to="/">
+                <Link to="/admin/">
                     Home
                 </Link>{'  '}
-                <Link to="/FAQ">
+                <Link to="/admin/FAQ">
                     FAQ
                 </Link>{'  '}
-                <Link to="/Lending">
+                <Link to="/admin/Lending">
                     Lending
                 </Link>{'  '}
-                <Link to="/Return">
+                <Link to="/admin/Return">
                     Return
                 </Link>
                 <hr/>
