@@ -9,11 +9,10 @@ db = db.getSiblingDB('admin');
 db.auth(process.env.MONGO_INITDB_ROOT_USERNAME, process.env.MONGO_INITDB_ROOT_PASSWORD);
 db = db.getSiblingDB('barcode-scanning');
 db.createCollection('items');
-
-db.items.insertOne({"hei": "hei"});
+db.createCollection('events');
 
 lines.slice(1).forEach(line => {
-    let doc = {};
+    let doc = {lentOut: false};
 
     line.split(',').forEach((val, i) => {
         doc = Object.assign(doc, {[names[i]]: val});

@@ -6,10 +6,13 @@ services:
     build: 
       context: ./database/
       dockerfile: Dockerfile
+
     restart: always
-    command: 
-      - '--logpath'
-      - '/var/log/mongodb/mongod.log'
+
+    #command:
+    #  - '--logpath'
+    #  - '/var/log/mongodb/mongod.log'
+
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
@@ -19,6 +22,7 @@ services:
 
 
   python-api:
+
     build: 
       context: ./python-api/
       dockerfile: Dockerfile
@@ -34,7 +38,9 @@ services:
     depends_on:
       - tech-database
 
+
   express-server:
+
     build: 
       context: ./express-server/
       dockerfile: Dockerfile
