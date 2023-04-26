@@ -117,6 +117,57 @@ def register_product(product: Product):
     return JSONResponse({"code": 1, "msg": "register successful"})
 
 
+@app.post('/returnProduct')
+def return_products(product: Product):
+    client = pymongo.MongoClient(
+        "mongodb://%s:%s@tech-database:27017/?authMechanism=DEFAULT&authSource=admin" % (db_user, db_pass))
+    db = client["barcode-scanning"]
+
+    items = db["items"]
+    query = {"ID": str(product.itemID)}
+    cursor = items.find(query)
+    document_list = list(cursor)
+
+    match len(document_list):
+        case 0:
+            return JSONResponse(dumps({"err": "Serverside error."}))
+        case 1:
+            pass
+        case _:
+            print("ERROR:     Multiple items with same id in db.")
+            return JSONResponse(dumps({"err": "Serverside error."}))
+
+    doc = document_list[0]
+
+    if not doc["lentOut"]:
+        JSONResponse(dumps({"code": -1, "msg": "not lent out"}))
+
+    items.update_one(query, {"$set": {"lentOut": {"$not": "$lentOut"}}})
+
+    # inserting starts here
+
+    events_col = db["events"]
+
+    now = datetime.datetime.now()
+
+    events_col.insert_one({
+        "time": {
+            "year": now.year,
+            "month": now.month,
+            "day": now.day,
+            "hour": now.hour,
+            "minute": now.minute,
+            "second": now.second
+        },
+        "product_mongo_id": doc["_id"],
+        "productID": product.itemID,
+        "person": product.person,
+        "type": "Returned",
+    })
+
+    return JSONResponse({"code": 1, "msg": "returned successfuly"})
+
+
 @app.get('/products')
 def all_products():
     return JSONResponse(dumps(products))
@@ -144,25 +195,61 @@ def product_id(id):
             return JSONResponse(dumps(document_list))
 
 
-@app.get('/allEvents')
-def all_events():
+def get_all_events() -> list:
     client = pymongo.MongoClient(
         "mongodb://%s:%s@tech-database:27017/?authMechanism=DEFAULT&authSource=admin" % (db_user, db_pass))
     db = client["barcode-scanning"]
 
     events_col = db["events"]
-
     cursor = events_col.find({})
     document_list = list(cursor)
-
     events_arr = []
 
     for document in document_list:
-        if document["type"] == "Lend out":
-            return
         events_arr.append(document)
 
-    return JSONResponse(dumps(events_arr))
+    return events_arr
+
+
+@app.get('/allEvents')
+def all_events():
+    events = get_all_events()
+    return JSONResponse(dumps(events))
+
+
+@app.get('/onlyReturnEvents')
+def only_return_events():
+    events = get_all_events()
+
+    for event in events:
+        if not event["type"] == "Returned":
+            events.remove(event)
+
+    return JSONResponse(dumps(events))
+
+
+@app.get('/onlyLendOutEvents')
+def only_lend_out_events():
+    events = get_all_events()
+
+    for event in events:
+        if not event["type"] == "Lend out":
+            events.remove(event)
+
+    return JSONResponse(dumps(events))
+
+
+@app.get('/lentOut')
+def lent_out():
+    client = pymongo.MongoClient(
+        "mongodb://%s:%s@tech-database:27017/?authMechanism=DEFAULT&authSource=admin" % (db_user, db_pass))
+    db = client["barcode-scanning"]
+
+    events_col = db["items"]
+    cursor = events_col.find({"lentOut": True})
+    document_list = list(cursor)
+
+    return JSONResponse(dumps(document_list))
 
 
 @app.get('/people')

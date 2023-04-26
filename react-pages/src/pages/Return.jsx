@@ -7,7 +7,7 @@ export const Return = () => {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        let url = '/api/allEvents';
+        let url = '/api/lentOutEvents';
 
         (async () => {
             const res = await axios.get(url);

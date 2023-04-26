@@ -74,6 +74,23 @@ router.post('/registerProduct', (req, res) => {
 })
 
 
+router.post('/returnProduct', (req, res) => {
+    if (req.auth > 4) {
+        (async () => {
+            try {
+                const response = await axios.post(`http://python-api:${api_port}/returnProduct`, {
+                    person: req.body.person, itemID: req.body.itemID
+                })
+                console.log(req.body.itemID, req.body.person)
+            }
+            catch (err) {
+                console.log(err)
+                res.json({"data": "Server side error."})
+            }
+        })();
+    }
+})
+
 router.post("/products", (req, res) => {
     if (req.auth > 4) {
         (async () => {
@@ -92,13 +109,44 @@ router.post("/products", (req, res) => {
 })
 
 
+const sorted = (arr) => {
+    const arr2 = [...arr]
+    arr2.sort((a, b) => a.time.second - b.time.second)
+    arr2.sort((a, b) => a.time.minute - b.time.minute)
+    arr2.sort((a, b) => a.time.hour - b.time.hour)
+    arr2.sort((a, b) => a.time.day - b.time.day)
+    arr2.sort((a, b) => a.time.month - b.time.month)
+    arr2.sort((a, b) => a.time.year - b.time.year)
+    return arr2
+}
+
+
+router.get('/lentOutEvents', (req, res) => {
+    if (req.auth > 4) {
+        (async () => {
+            try {
+
+                const events = await axios.get(`http://python-api:${api_port}/onlyLendOutEvents`)
+                const sortedJson = sorted(events.data)
+
+                console.log(sortedJson)
+
+            }
+            catch (err) {
+                console.log(err)
+                res.status(500).json({"code": -1, "msg": "Server side error."})
+            }
+        })()
+    }
+})
+
+
 router.get('/allEvents', (req, res) => {
     if (req.auth > 4) {
         (async () => {
             try {
                 const events = await axios.get(`http://python-api:${api_port}/allEvents`)
                 const json = events.data
-                console.log(json)
                 res.json(json)
             }
             catch (err) {

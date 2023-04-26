@@ -9,9 +9,9 @@ services:
 
     restart: always
 
-    #command:
-    #  - '--logpath'
-    #  - '/var/log/mongodb/mongod.log'
+    command:
+      - '--logpath'
+      - '/var/log/mongodb/mongod.log'
 
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
@@ -46,6 +46,7 @@ services:
       dockerfile: Dockerfile
 
     environment:
+      - NODE_ENV=production
       - WEB_PORT=${WEB_PORT}
       - API_PORT=${API_PORT}
       - PORT_OUT=${PORT_OUT}
