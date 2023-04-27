@@ -109,27 +109,63 @@ router.post("/products", (req, res) => {
 })
 
 
-const sorted = (arr) => {
-    const arr2 = [...arr]
-    arr2.sort((a, b) => a.time.second - b.time.second)
-    arr2.sort((a, b) => a.time.minute - b.time.minute)
-    arr2.sort((a, b) => a.time.hour - b.time.hour)
-    arr2.sort((a, b) => a.time.day - b.time.day)
-    arr2.sort((a, b) => a.time.month - b.time.month)
-    arr2.sort((a, b) => a.time.year - b.time.year)
-    return arr2
+const sort_events = (arr) => {
+    try {
+        const arr2 = [...arr]
+        arr2.sort((a, b) => a.time.second - b.time.second)
+        arr2.sort((a, b) => a.time.minute - b.time.minute)
+        arr2.sort((a, b) => a.time.hour - b.time.hour)
+        arr2.sort((a, b) => a.time.day - b.time.day)
+        arr2.sort((a, b) => a.time.month - b.time.month)
+        arr2.sort((a, b) => a.time.year - b.time.year)
+        return arr2
+    }
+    catch (err) {
+        console.log(err)
+        return null
+    }
 }
 
 
+const remove_from_json = async (json) => {
+    try {
+        const json_copy = {...json}
+
+        const product = await axios.get(`http://python-api:${api_port}/products/${json.productID}`)
+        const data = await JSON.parse(product.data)
+
+        delete json_copy["_id"]
+        delete json_copy["product_mongo_id"]
+        delete json_copy["type"]
+        delete data["lentOut"]
+        delete data["_id"]
+
+        return {...json_copy, ...data}
+    }
+    catch (err) {
+        console.log(err)
+        return json
+    }
+}
+
+
+// this needs optimization
 router.get('/lentOutEvents', (req, res) => {
     if (req.auth > 4) {
         (async () => {
             try {
 
                 const events = await axios.get(`http://python-api:${api_port}/onlyLendOutEvents`)
-                const sortedJson = sorted(events.data)
+                const arr = JSON.parse(events.data)
 
-                console.log(sortedJson)
+                const new_arr = []
+
+                for (const element of arr) {
+                    const new_element = await remove_from_json(element)
+                    new_arr.push(new_element)
+                }
+
+                res.json(JSON.stringify(new_arr))
 
             }
             catch (err) {

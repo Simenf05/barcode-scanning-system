@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
 
     environment:
-      - NODE_ENV=production
+      # - NODE_ENV=production
       - WEB_PORT=${WEB_PORT}
       - API_PORT=${API_PORT}
       - PORT_OUT=${PORT_OUT}

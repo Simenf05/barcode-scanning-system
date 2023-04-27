@@ -37,4 +37,4 @@ process.on('SIGTERM', () => {
     server.close(() => {
       console.debug('HTTP server closed')
     })
-  })
+})
