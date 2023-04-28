@@ -3,7 +3,7 @@ const fs = require('fs');
 const data = fs.readFileSync("data.csv");
 
 console.log(data)
-console.log(data.toString())
+console.log(data.toString().split(','))
 
 const lines = data.toString().split('\r\n').slice(0, -1);
 
