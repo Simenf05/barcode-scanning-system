@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const data = fs.readFileSync("data.csv", {encoding: 'utf-8'});
+console.log(data)
 const lines = data.split('\r\n').slice(0, -1);
 
 const names = [...lines[0].split(',')]
