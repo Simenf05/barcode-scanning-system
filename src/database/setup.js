@@ -4,7 +4,7 @@ const data = fs.readFileSync("data.csv");
 
 const lines = data.toString().split(/\r?\n/).slice(0, -1);
 
-const names = [...lines[0].split(',')]
+const names = lines[0].split(',')
 
 db = db.getSiblingDB('admin');
 db.auth(process.env.MONGO_INITDB_ROOT_USERNAME, process.env.MONGO_INITDB_ROOT_PASSWORD);
