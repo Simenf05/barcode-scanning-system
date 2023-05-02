@@ -48,7 +48,7 @@ const authUser = (r, req, res, next) => {
         }
     }
 
-    if (!r.auth) {
+    if (r === undefined) {
         return
     }
 

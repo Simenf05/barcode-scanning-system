@@ -7,8 +7,7 @@ import urllib.parse
 from bson.json_util import dumps
 import pymongo
 import datetime
-import httpx
-import asyncio
+import hashlib
 from pydantic import BaseModel
 
 try:
@@ -25,15 +24,20 @@ products = {
     "tomas3": {"data": "dette er tomas ting"},
 }
 
+
+def pass_hasher(password: str):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
 simen_userers = {
     "simen": {
         "username": "simen",
-        "password": "simenerkul",
+        "password": pass_hasher("simenerkul"),
         "auth": 5,
     },
     "simen2": {
         "username": "simen2",
-        "password": "simen2",
+        "password": pass_hasher("simen2"),
         "auth": 4,
     }
 }
@@ -56,8 +60,10 @@ def check_user(user: User):
     if user.username not in simen_userers.keys():
         raise HTTPException(status_code=403, detail="Access denied.")
 
-    for users in simen_userers.values():
+    for i, users in enumerate(simen_userers.values()):
+
         if (user.username == users["username"]) and (user.password == users["password"]):
+
             auth = users["auth"]
 
     if auth == 0:

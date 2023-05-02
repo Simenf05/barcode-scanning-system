@@ -52,3 +52,9 @@ To start the project all you have to do is to navigate to the src folder.
 Then you have to start docker compose.
 
 ```docker compose up```
+
+### Shutting down the project.
+
+To shut it down you use docker compose in the same directory.
+
+```docker compose down```
