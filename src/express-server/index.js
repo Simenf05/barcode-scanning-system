@@ -10,17 +10,15 @@ const internal_port = process.env.WEB_PORT || 8080;
 
 app = express();
 
-
-
 app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const oneMin = 1000 * 60 * 30;
+const sessionTimer = 1000 * 60 * 30;
 
 app.use(session({
     secret: 'simenerveldigkul',
-    cookie: { maxAge: oneMin },
+    cookie: { maxAge: sessionTimer },
     saveUninitialized: false,
     resave: true
 }))

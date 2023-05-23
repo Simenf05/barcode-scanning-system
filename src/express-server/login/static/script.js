@@ -51,5 +51,3 @@ formEl.onsubmit = (e) => {
 }
 
 
-digestData("simen")
-    .then(x => console.log(x))
