@@ -24,30 +24,32 @@ formEl.onsubmit = (e) => {
     const password = passwordEl.value
     const username = usernameEl.value
 
-    digestData(password)
-        .then(hash => {
-            fetch(
-                window.location.href,
+    fetch(
+        window.location.href,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
                 {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(
-                        {
-                            username: username,
-                            password: hash,
-                        }
-                    )
-
+                    username: username,
+                    password: password,
                 }
             )
-                .then(
-                    x => location.href = window.location.origin
-                )
-        })
 
-    return false
+            })
+        .then(
+            x => location.href = window.location.origin
+        )
 }
 
 
+/*
+    digestData(password)
+        .then(hash => {
+
+
+        })
+
+    return false*/

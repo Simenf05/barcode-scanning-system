@@ -62,7 +62,7 @@ def check_user(user: User):
 
     for i, users in enumerate(simen_userers.values()):
 
-        if (user.username == users["username"]) and (user.password == users["password"]):
+        if (user.username == users["username"]) and (pass_hasher(user.password) == users["password"]):
 
             auth = users["auth"]
 
