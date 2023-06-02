@@ -1,8 +1,13 @@
 const express = require('express');
 const session = require('express-session');
+const https = require('https')
+const fs = require('fs')
+const path = require('path')
 
 const login = require('./routes/login');
 const pages = require('./routes/pages');
+
+
 
 const external_port = process.env.PORT_OUT;
 const internal_port = process.env.WEB_PORT || 8080;
@@ -26,13 +31,25 @@ app.use(session({
 app.use('/login', login)
 app.use('/', pages)
 
-const server = app.listen(internal_port, () => {
+
+
+httpsServer = https
+    .createServer(
+        {
+            key: fs.readFileSync(path.join('.', 'ssl', 'key.pem')),
+            cert: fs.readFileSync(path.join('.', 'ssl', 'cert.pem'))
+        },
+        app
+    )
+
+const runningServer = httpsServer.listen(internal_port, () => {
     console.log(`App listening on internal port: ${internal_port} and external port: ${external_port}`);
 })
 
+
 process.on('SIGTERM', () => {
     console.debug('SIGTERM signal received: closing HTTP server')
-    server.close(() => {
+    runningServer.close(() => {
       console.debug('HTTP server closed')
     })
 })
