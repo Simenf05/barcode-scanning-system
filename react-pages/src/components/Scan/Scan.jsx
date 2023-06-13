@@ -57,8 +57,8 @@ export const Scan = (props) => {
             <p>{error}</p>
             <p>ID: {data["ID"]}</p>
             <p>PC modell: {data["PC modell "]}</p>
-            <p>Wifi mac: {data["WiFi� MAC-adr� (IPv4)"]}</p>
-            <p>Ethernet mac: {data["Ethernet MAC-adr� "]}</p>
+            <p>Wifi mac: {data["WiFi MAC-adr (IPv4)"]}</p>
+            <p>Ethernet mac: {data["Ethernet MAC-adr"]}</p>
         </div>
     )
 }
