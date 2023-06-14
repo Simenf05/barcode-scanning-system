@@ -51,7 +51,16 @@ export const Search = (props) => {
         </form>
         <div className="text-center">{gibberish}</div>
         <div className="grid grid-cols-3">
-            {notFullMatch.map(name => <div value={name} className="border p-1 m-2 text-center" onClick={(e) => props.select(e.currentTarget.getAttribute('value'))} key={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</div>)}
+            {notFullMatch.map(name => 
+            <div 
+            value={name} 
+            className="border p-1 m-2 text-center" 
+            onClick={(e) => props.select(e.currentTarget.getAttribute('value'))} 
+            key={name}>
+                
+                {name.charAt(0).toUpperCase() + name.slice(1)}
+            
+            </div>)}
         </div>
 
         </div>
